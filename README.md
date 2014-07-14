@@ -43,8 +43,9 @@ I used a repository pattern for data access.
       that extends this base repository. Since we are only querying for one
       object I only have one extension of BaseRepository: CityWeatherRepository.
 
-I did use a JSON serialization library even though it the challenge rules say
-no third party/open source libraries allowed. I believed parsing JSON is not the
+I did use a JSON serialization library even though in the challenge rules say
+no third party/open source libraries allowed. I believed parsing JSON by hand
+and mapping the data to a specific language's object is not the
 point of this challenge. I do however understand the need to know and understand
 the JSON data format so I have some examples of using the third party software
 that displays this understanding (Other solutions will have similar use cases).
