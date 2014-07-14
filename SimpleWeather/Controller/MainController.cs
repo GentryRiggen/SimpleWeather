@@ -12,6 +12,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace SimpleWeather.Controller
 {
+    /// <summary>
+    /// The primary controller that aids the HomeView and DailyView views. 
+    /// Interacts with the data layer and also contains fields for the views
+    /// to bind to. 
+    /// </summary>
     public class MainController : ObservableObject
     {
         #region Properties
@@ -102,6 +107,7 @@ namespace SimpleWeather.Controller
         }
         #endregion
 
+        #region Constructors
         /// <summary>
         /// Constructor adds a set list of cities to be picked from and then 
         /// gets the 16 day forecast for the first one
@@ -129,12 +135,17 @@ namespace SimpleWeather.Controller
             _selectedCity = CityNames.First();
             RefreshAsync();
         }
+        #endregion
 
         private async Task RefreshAsync()
         {
             DialogService.ShowLoading();
             CityWeatherForecast = null;
             CityWeatherForecast = await _repo.GetCityForecast(_cityNamesToQuery[_selectedCity]);
+            if (CityWeatherForecast == null)
+            {
+                await DialogService.ShowDialogAsync("Oops", "Could not retrieve the forecast.");
+            }
             SelectedDay = CityWeatherForecast.DailyWeatherForecasts.First();
             BackgroundImage = _selectedDay.BackgroundImage;
             DialogService.HideLoading();
@@ -165,24 +176,38 @@ namespace SimpleWeather.Controller
             BackgroundImage = _selectedDay.BackgroundImage;
         }
 
+        #region Sorting
+        /// <summary>
+        /// I use a LINQ to do simple sorting on the data with lambda expressions.
+        /// </summary>
         private void SortByHighs()
         {
             CityWeatherForecast.DailyWeatherForecasts = CityWeatherForecast.DailyWeatherForecasts.OrderByDescending(d => d.Temp.Max).ToList();
         }
 
+        /// <summary>
+        /// I use a LINQ to do simple sorting on the data with lambda expressions.
+        /// </summary>
         private void SortByLows()
         {
             CityWeatherForecast.DailyWeatherForecasts = CityWeatherForecast.DailyWeatherForecasts.OrderBy(d => d.Temp.Min).ToList();
         }
 
+        /// <summary>
+        /// I use a LINQ to do simple sorting on the data with lambda expressions.
+        /// </summary>
         private void SortByRain()
         {
             CityWeatherForecast.DailyWeatherForecasts = CityWeatherForecast.DailyWeatherForecasts.OrderByDescending(d => d.Rain);
         }
 
+        /// <summary>
+        /// I use a LINQ to do simple sorting on the data with lambda expressions.
+        /// </summary>
         private void SortByDate()
         {
             CityWeatherForecast.DailyWeatherForecasts = CityWeatherForecast.DailyWeatherForecasts.OrderBy(d => d.Date);
         }
+        #endregion
     }
 }

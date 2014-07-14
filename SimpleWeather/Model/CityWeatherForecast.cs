@@ -25,7 +25,7 @@ namespace SimpleWeather.Model
 
         private IEnumerable<DailyWeather> _dailyWeatherForecasts;
         
-        // Webservice calls the list of daily weathers "list" so I use a friendlier name
+        // Web service calls the list of daily weathers "list" so I use a friendlier name
         [JsonProperty("list")]
         public IEnumerable<DailyWeather> DailyWeatherForecasts
         {

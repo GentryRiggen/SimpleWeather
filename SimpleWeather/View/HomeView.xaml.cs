@@ -17,15 +17,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
-
 namespace SimpleWeather
 {
-    public sealed partial class Home : Page
+    public sealed partial class HomeView : Page
     {
         private readonly NavigationHelper navigationHelper;
         MainController mainController;
-        public Home()
+        public HomeView()
         {
             this.InitializeComponent();
 

@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace SimpleWeather.Data.Repositories
 {
+    /// <summary>
+    /// Default implementation of the IRepository Interface.
+    /// All other repositories will extend this class and inherit
+    /// the functionality. They can also override any details to 
+    /// better fit their needs.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BaseRepository<T> : IRepository<T> where T : class
     {
         private Uri _apiBaseUrl = new Uri("http://api.openweathermap.org/data/2.5/forecast/daily");
