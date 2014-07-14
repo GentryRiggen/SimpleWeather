@@ -112,6 +112,7 @@ namespace SimpleWeather.Controller
             DialogService = new DialogService();
             _repo = new CityWeatherRepository();
             _cityNamesToQuery.Add("Boulder, USA", "boulder,us");
+            _cityNamesToQuery.Add("Banff, Canada", "banff,ca");
             _cityNamesToQuery.Add("Tokyo, Japan", "tokyo");
             _cityNamesToQuery.Add("Seoul, South Korea", "seoul");
             _cityNamesToQuery.Add("Shanghai, China", "shanghai");
