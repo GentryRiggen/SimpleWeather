@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="SimpleWeather.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SimpleWeather"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:partialViews="using:SimpleWeather.View.PartialViews"
+    mc:Ignorable="d">
+    
+    <Page.Background>
+        <ImageBrush ImageSource="{Binding BackgroundImage}" Opacity=".7"/>
+    </Page.Background>
+
+    <Grid Margin="10, 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.RowSpan="4" Visibility="{Binding DialogService.LoadingVisibility}"
+                    VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+            <ProgressBar IsIndeterminate="{Binding DialogService.ProgressIndeterminate}" HorizontalAlignment="Stretch" Height="10"/>
+            <TextBlock Text="Loading..." Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <Grid Grid.Row="0">
+            <partialViews:AppTitle />
+        </Grid>
+
+        <ComboBox Grid.Row="1" ItemsSource="{Binding CityNames}" Margin="0" 
+                  SelectionChanged="CitySelected_Event"/>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource TitleTextBlockStyle}" Text="{Binding SelectedCity}" 
+                   FontSize="30"/>
+
+        <ListView Grid.Row="3" DataContext="{Binding CityWeatherForecast}"
+                  Margin="10, 5"
+                  ItemsSource="{Binding DailyWeatherForecasts}"
+                  IsItemClickEnabled="True"
+                  ContinuumNavigationTransitionInfo.ExitElementContainer="True"
+                  ItemContainerStyle="{StaticResource DefaultListViewItemStyle}"
+                  ItemTemplate="{StaticResource DailyWeatherSummaryTemplate}"
+                  ItemClick="DailyWeatherClicked_Event">
+        </ListView>
+    </Grid>
+
+    <Page.BottomAppBar>
+
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Label="Refresh" Command="{Binding RefreshCommand}"
+                              Icon="Refresh" />
+                <AppBarButton Label="Sort" Command="{Binding SortCommand}"
+                              Icon="Sort">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Date" Command="{Binding SortByDateCommand}" />
+                            <MenuFlyoutItem Text="High Temperatures" Command="{Binding SortByHighsCommand}" />
+                            <MenuFlyoutItem Text="Low Temperatures" Command="{Binding SortByLowsCommand}" />
+                            <MenuFlyoutItem Text="Rain Volume" Command="{Binding SortByRainCommand}" Margin="0, 0, 0, 70" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
