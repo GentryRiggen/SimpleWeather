@@ -1,5 +1,6 @@
 SimpleWeather
 =============
+DEMO: https://www.youtube.com/watch?v=bj0BMvXwXdE&feature=youtu.be
 
 A simple weather app for Windows Phone that uses data from
 http://openweathermap.org/
